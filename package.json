@@ -1,0 +1,34 @@
+{
+  "name": "yum-server",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "kill": "kill -9 $(lsof -t -i:$(grep PARSE_PORT .env | cut -d '=' -f2))",
+    "dev": "nodemon --watch src --exec babel-node ./src/app.js",
+    "clear": "rm -rf dist && mkdir dist",
+    "build": "npm run clear && babel src -d dist && cp -p -r ./src/email/templates ./dist/email/templates",
+    "server": "node dist/app.js",
+    "start": "npm run clear && babel src -d dist && node ./dist/app.js"
+  },
+  "dependencies": {
+    "@godaddy/terminus": "^4.9.0",
+    "bullmq": "^1.48.2",
+    "cors": "^2.8.5",
+    "express": "~4.17.1",
+    "handlebars": "^4.7.7",
+    "ioredis": "^4.27.9",
+    "mongodb": "^4.1.2",
+    "nodemailer": "^6.6.5",
+    "parse-dashboard": "^3.1.2",
+    "parse-server": "^4.10.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.13"
+  }
+}
